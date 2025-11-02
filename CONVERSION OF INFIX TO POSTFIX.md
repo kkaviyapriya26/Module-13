@@ -30,11 +30,39 @@ To write a Python program to convert a given Infix expression to Postfix express
 ### PROGRAM
 
 ```
+Reg.No: 212223060120
+Name: KAVIYA PRIYA K
 
+Operators = set(['-', '*', '+','(',')']) # collection of Operators
+Priority = {'-':1,'*':2,'+':3}  
+ 
+def infixToPostfix(expression): 
+    stack = [] # initialization of empty stack
+    output = '' 
+    
+    for character in expression:
+        if character not in Operators:  # if an operand append in postfix expression
+            output+= character
+        elif character=='(':  # else Operators push onto stack
+            stack.append('(')
+        elif character==')':
+            while stack and stack[-1]!= '(':
+                output+=stack.pop()
+            stack.pop()
+        else: 
+            while stack and stack[-1]!='(' and Priority[character]<=Priority[stack[-1]]:
+                output+=stack.pop()
+            stack.append(character)
+    while stack:
+        output+=stack.pop()
+    return output
+expression = input()
+print('infix notation: ',expression)
+print('postfix notation: ',infixToPostfix(expression))
 ```
 
 ### OUTPUT
-
+<img width="1103" height="254" alt="image" src="https://github.com/user-attachments/assets/da1ec8d2-e877-4f28-baef-90c322e15a6e" />
 
 ### RESULT
-
+Successfully converted an infix expression with subtraction and multiplication into postfix notation using a dictionary for precedence and a set for operator validation.
